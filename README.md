@@ -1,1 +1,1 @@
-This is the Blog Repository of ZX Liu.
+This is the Blog Repository of [ZX Liu](www.liuzx0401.com).
