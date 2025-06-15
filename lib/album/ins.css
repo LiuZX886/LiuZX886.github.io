@@ -52,39 +52,51 @@ figure {
 	margin-left: 10px;
 }
 .instagram .album ul{
-	display: flex;
+	display: flex; /* Masonry会覆盖这个，但留着也无妨 */
 	flex-wrap: wrap;
 	clear: both;
 	width: 100%;
 	text-align: left;
+    margin: 0 auto; /* <-- 添加这一行来实现居中 */
 }
 .instagram .album li{
 	list-style: none;
-	display: inline-block;
-	box-sizing: border-box;
-	padding: 0 5px;
-	margin-bottom: -10px;
-	height: 0;
-	width: 25%;
-	position: relative;
-	padding-bottom: 25%;
+    display: inline-block; /* 这个可以保留，但Masonry会覆盖它 */
+    box-sizing: border-box;
+    padding: 0 5px; /* 保留或修改水平间距 */
+
+    /*
+     * ↓↓↓ 核心修改区域 ↓↓↓
+     */
+
+    /* 1. 删除或注释掉这两个属性 */
+    /* height: 0; */
+    /* padding-bottom: 25%; */
+
+    /* 2. 只设置宽度来决定列数 (例如，3列) */
+    width: 32%; /* 考虑到间距，略小于33.3% */
+
+    /* 3. 增加一个垂直间距 */
+    margin-bottom: 2px;
+
+    position: relative; /* 这个保留 */
 }
 .instagram .album li:before{
 	display: none;
 }
 .instagram .album div.img-box{
-	position: absolute;
-	width: 90%;
-	height: 90%;
+	/*position: absolute;*/
+	width: 100%;
+	height: auto;
 	-webkit-box-shadow: 0 1px 0 rgba(255,255,255,0.4), 0 1px 0 1px rgba(255,255,255,0.1);
 	-moz-box-shadow: 0 1px 0 rgba(255,255,255,0.4), 0 1px 0 1px rgba(255,255,255,0.1);
 	box-shadow: 0 1px 0 rgba(255,255,255,0.4), 0 1px 0 1px rgba(255,255,255,0.1);
 }
 .instagram .album div.img-box img{
 	width: 100%;
-	height: 100%;
-    position: absolute;
+	height: auto;
     z-index: 2;
+	display: block;
 }
 .instagram .album div.img-box .img-bg{
 	position: absolute;
