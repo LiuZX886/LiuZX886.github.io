@@ -1,82 +1,43 @@
-/* ===================================================================
-// 相册页面重构版 CSS
-// v3.2: 移除了所有外边距，确保在所有设备上都能紧密贴合
-// =================================================================== */
+/*
+ * ===================================================================
+ * 针对图片空隙和按钮点击问题的 CSS 修复方案
+ * ===================================================================
+*/
 
-/* --- 全局与重置样式 --- */
-#post-instagram { padding: 20px; }
-figure { margin: 0; }
-.posts-expand .post-body img { padding: 0; border: 0; }
-/* --- 瀑布流布局核心样式 --- */
-.img-box-ul { position: relative; margin: 0 auto; }
-
-/* * 单个图片项 (.thumb) 的核心样式 */
-.instagram .thumb {
-  padding: 0 2px; /* 仅保留左右内边距，用于控制列间距 */
-  box-sizing: border-box; 
-  width: 33.3333%;
-  height: auto;
-  /* margin-bottom 已被移除，解决所有垂直缝隙问题 */
-}
-
-/* 链接设为块级元素 */
-.instagram .thumb a { display: block; }
-
-/* 长宽比占位容器 */
-.aspect-ratio-box {
-  position: relative;
-  height: 0;
-  width: 100%;
-  overflow: hidden;
-  border-radius: 4px;
+/*
+ * 修复 1: 移除图片下方的空隙
+ *
+ * 问题原因: <img> 标签默认是行内元素 (inline), 浏览器会为其保留用于文字
+ * 基线对齐的空间，从而产生多余的空隙。
+ *
+ * 解决方案: 将图片的 display 属性设置为 'block'，使其成为块级元素，
+ * 这样它就会独立占据一行，移除了为文字对齐保留的额外空间。
+*/
+.instagram .thumb img {
+  display: block;
+  width: 100%; /* 确保图片宽度自适应其容器 */
 }
 
-/* 内部图片的样式 */
-.aspect-ratio-box img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+/*
+ * 修复 2: 让页面顶部的菜单和搜索按钮可以被点击
+ *
+ * 问题原因: PhotoSwipe 的主容器 (.pswp) 即使在关闭时，其层级 (z-index)
+ * 可能也高于页头，导致它像一个透明的层覆盖在按钮上，拦截了点击事件。
+ *
+ * 解决方案:
+ * 1. 为 header 元素设置一个相对定位和更高的 z-index，确保它在正常的页面
+ * 流中位于较高的层级。
+ * 2. 强制 PhotoSwipe 容器在不使用时 (aria-hidden="true")
+ * 完全隐藏 (display: none)，这样它就不会再拦截任何点击。
+*/
+
+/* 步骤 2a: 提升 header 的层级 */
+.header {
+  position: relative; /* z-index 生效的前提 */
+  z-index: 10;      /* 一个合适的层级值，确保它在 .pswp 之上 */
 }
 
-/* 月份标题项的样式 */
-.grid-item--title {
-  box-sizing: border-box;
-  width: 100%;
-  padding: 25px 2px 15px 2px;
-}
-.grid-item--title .year {
-  font-size: 1.2em;
-  color: #333;
-  font-weight: 600;
-  margin: 0;
-  padding: 0;
-  text-align: center;
-}
-.grid-item--title .year em {
-  font-style: normal;
-  font-size: 0.9em;
-  font-weight: normal;
-  margin-left: 10px;
-  color: #777;
-}
-
-/* 图片懒加载效果 */
-.aspect-ratio-box img {
-  opacity: 0;
-  transition: opacity 0.6s ease;
-}
-.aspect-ratio-box img.lazyloaded {
-  opacity: 1;
-}
-
-/* --- 移动端响应式样式 --- */
-@media screen and (max-width: 1000px) {
-  .instagram .thumb { width: 50%; }
-}
-@media screen and (max-width: 600px) {
-  .instagram .thumb { width: 100%; }
-  #post-instagram { padding: 10px; }
+/* 步骤 2b: 确保 PhotoSwipe 容器在关闭时彻底隐藏 */
+.pswp[aria-hidden="true"] {
+  display: none;
 }
