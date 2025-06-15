@@ -1,161 +1,105 @@
-#post-instagram{
-	padding: 30px;
+/* ===================================================================
+// 相册页面重构版 CSS
+// 最终版本，旨在与 Masonry.js 和 PhotoSwipe.js 完美协作
+// =================================================================== */
+
+/* --- 全局与重置样式 --- */
+
+/* 为整个相册区域提供一些外边距，让它不贴边 */
+#post-instagram {
+  padding: 20px;
 }
+
+/* 强制重置 <figure> 标签的浏览器默认外边距，防止意外的空白 */
 figure {
-    margin: 0;
+  margin: 0;
 }
-#post-instagram .article-entry{
-	padding-right: 0;
-}
-.instagram{
-	position: relative;
-	min-height: 500px;
-}
-.instagram img {
-    width: 100%;
-    
-}
+
+/* 确保图片本身没有被主题添加额外的边框或内边距 */
 .posts-expand .post-body img {
-    padding: 0;
-    border : 0;
+  padding: 0;
+  border: 0;
 }
-.instagram .year {
-	font-size: 16px;
-	color: #555;
+
+
+/* --- 相册容器与标题 --- */
+
+/* 设置一个最小高度，防止在JS加载完成前容器因没有内容而塌陷 */
+.instagram {
+  position: relative;
+  /*min-height: 400px;*/ 
 }
-.instagram .open-ins{
-	padding: 10px 0;
-	color: #cdcdcd;
+
+/* 月份标题样式 */
+.instagram .album h1.year {
+  font-size: 1.1em; /* 1.1倍的根字体大小 */
+  color: #555;
+  font-weight: 600;
+  margin-bottom: 20px; /* 标题与图片网格之间的间距 */
+  padding-left: 2px;   /* 与图片的内边距对齐，视觉上更和谐 */
 }
-.instagram .open-ins:hover{
-	color: #657b83;
+
+.instagram .album h1 em {
+  font-style: normal;
+  font-size: 0.9em;
+  font-weight: normal;
+  margin-left: 8px;
 }
-.instagram .year{
-	display: inline;
+
+
+/* --- 瀑布流布局核心样式 --- */
+
+/* * 瀑布流网格的容器 (.img-box-ul) 
+ * position: relative 是必需的，为 Masonry 的绝对定位提供基准。
+ * margin: 0 auto 与 JS 中的 fitWidth:true 配合，实现整个网格的水平居中。
+*/
+.img-box-ul {
+  position: relative;
+  margin: 0 auto;
 }
+
+/* * 单个图片项 (.thumb) 的核心样式
+ * 这是实现你所有要求的关键部分。
+*/
 .instagram .thumb {
-	width: 25%;
-	height: 0; 
-	padding-bottom: 25%;
-	position: relative;
-	display: inline-block;
-	text-align: center;
-	background: #ededed;
-	outline: 1px solid #ddd;
-}
-.instagram .thumb a {
-	position: relative;
-}
-.instagram .album h1 em{
-	font-style: normal;
-	font-size: 14px;
-	margin-left: 10px;
-}
-/*
-.instagram .album ul{
-	display: flex; 
-	flex-wrap: wrap;
-	clear: both;
-	width: 100%;
-	text-align: left;
-}
-.instagram .album li{
-	list-style: none;
-    display: inline-block; 
-    box-sizing: border-box;
-    padding: 0 5px; 
-    width: 32%; 
-    margin-bottom: 2px;
-    position: relative; 
-}*/
-.instagram .album li:before{
-	display: none;
-}
-.instagram .album div.img-box{
-	/*position: absolute;*/
-	width: 100%;
-	height: auto;
-	-webkit-box-shadow: 0 1px 0 rgba(255,255,255,0.4), 0 1px 0 1px rgba(255,255,255,0.1);
-	-moz-box-shadow: 0 1px 0 rgba(255,255,255,0.4), 0 1px 0 1px rgba(255,255,255,0.1);
-	box-shadow: 0 1px 0 rgba(255,255,255,0.4), 0 1px 0 1px rgba(255,255,255,0.1);
-}
-.instagram .album div.img-box img{
-	width: 100%;
-	height: auto;
-    z-index: 2;
-	display: block;
-}
-.instagram .album div.img-box .img-bg{
-	position: absolute;
-	top: 0;
-	left: 0;
-	bottom: 0px;
-	width: 100%;
-	margin: -5px;
-	padding: 5px;
-	-webkit-box-shadow: 0 0 0 1px rgba(0,0,0,.04), 0 1px 5px rgba(0,0,0,0.1);
-	-moz-box-shadow: 0 0 0 1px rgba(0,0,0,.04), 0 1px 5px rgba(0,0,0,0.1);
-	box-shadow: 0 0 0 1px rgba(0,0,0,.04), 0 1px 5px rgba(0,0,0,0.1);
-	-webkit-transition: all 0.15s ease-out 0.1s;
-	-moz-transition: all 0.15s ease-out 0.1s;
-	-o-transition: all 0.15s ease-out 0.1s;
-	transition: all 0.15s ease-out 0.1s;
-	opacity: 0.2;
-	cursor: pointer;
-	display: block;
-	z-index: 3;
-}
-.instagram .album div.img-box .icon {
-    font-size: 14px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    margin-left: -7px;
-    margin-top: -7px;
-    color: #999;
-    z-index: 1;
-}
-.instagram .album div.img-box .img-bg:hover{
-	opacity: 0;
-}
-.photos-btn-wrap {
-	border-bottom: 1px solid #e5e5e5;
-	margin-bottom: 20px;
-}
-.photos-btn {
-	font-size: 16px;
-	color: #333;
-	margin-bottom: -4px;
-	padding: 5px 8px 3px;
-}
-.photos-btn.active {
-	color: #08c;
-	border: 1px solid #e5e5e5;
-	border-bottom: 5px solid #fff;
+  /* --- 间距控制 (关键) --- */
+  /* 使用 padding 在每个图片周围创建2px的“留白”。 */
+  /* 这将使得图片上下、左右之间的总间距都是统一的 4px (2px + 2px)。*/
+  padding: 1px;
+  
+  /* --- 尺寸与盒模型 --- */
+  /* 让 padding 不会撑大元素的总宽度，这对于百分比布局至关重要！*/
+  box-sizing: border-box; 
+  
+  /* --- 桌面端列数设置 (3列) --- */
+  width: 33%;
+
+  /* --- 重置与默认值 --- */
+  height: auto;     /* 高度必须为 auto，这是瀑布流效果的核心 */
+  margin: 0;        /* 移除所有 margin，间距完全由 padding 控制 */
+  border: none;     /* 移除所有边框 */
 }
 
-@media screen and (max-width:600px) {
-	.instagram .thumb {
-	/* 1. 设置宽度以实现3列布局。32% 是一个不错的值，给间距留出了空间 */
-	width: 25%;
+/* 确保图片填满带 padding 的容器 */
+.instagram .thumb img {
+  display: block;  /* 移除图片底部的潜在空隙 */
+  width: 100%;     /* 图片宽度填满容器 */
+  height: auto;    /* 高度自动适应 */
+  opacity: 0;      /* 初始透明度为0，为懒加载后的淡入效果做准备 */
+  transition: opacity 0.5s; /* 设置一个0.5秒的平滑淡入动画 */
+}
 
-	/* 2. 重置默认的上下外边距 */
-	margin-top: 0;
-	margin-bottom: 5px; /* <-- 你可以用这个值来精确控制“行间距”，试试15px */
+/* 图片被懒加载库处理后，会自动添加 .lazyloaded 类 */
+.instagram .thumb img.lazyloaded {
+    opacity: 1; /* 图片加载后，透明度变为1，触发淡入效果 */
+}
 
-	/* 3. 移除旧的高度和内边距限制，让高度自动 */
-	height: auto;
-	padding-bottom: 0;
-	}
-	/*.instagram .album li {
-		width: 100%;
-		position: relative;
-		padding-bottom: 100%;
-		text-align: center;
-	}*/
-	.instagram .album div.img-box{
-		margin: 0;
-		width: 90%;
-		height: 90%;
-	}
+
+/* --- 移动端响应式样式 --- */
+
+@media screen and (max-width: 600px) {
+  /* 在屏幕宽度小于600px的设备上，调整宽度以实现2列布局。 */
+  .instagram .thumb {
+    width: 50%;
+  }
 }
