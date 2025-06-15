@@ -76,7 +76,7 @@ figure { margin: 0; }
 @media screen and (max-width: 1000px) {
   .instagram .thumb { width: 50%; }
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 500px) {
   .instagram .thumb { width: 100%; }
   #post-instagram { padding: 10px; }
 }
