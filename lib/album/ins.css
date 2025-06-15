@@ -51,36 +51,23 @@ figure {
 	font-size: 14px;
 	margin-left: 10px;
 }
+/*
 .instagram .album ul{
-	display: flex; /* Masonry会覆盖这个，但留着也无妨 */
+	display: flex; 
 	flex-wrap: wrap;
 	clear: both;
 	width: 100%;
 	text-align: left;
-    margin: 0 auto; /* <-- 添加这一行来实现居中 */
 }
 .instagram .album li{
 	list-style: none;
-    display: inline-block; /* 这个可以保留，但Masonry会覆盖它 */
+    display: inline-block; 
     box-sizing: border-box;
-    padding: 0 5px; /* 保留或修改水平间距 */
-
-    /*
-     * ↓↓↓ 核心修改区域 ↓↓↓
-     */
-
-    /* 1. 删除或注释掉这两个属性 */
-    /* height: 0; */
-    /* padding-bottom: 25%; */
-
-    /* 2. 只设置宽度来决定列数 (例如，3列) */
-    width: 32%; /* 考虑到间距，略小于33.3% */
-
-    /* 3. 增加一个垂直间距 */
+    padding: 0 5px; 
+    width: 32%; 
     margin-bottom: 2px;
-
-    position: relative; /* 这个保留 */
-}
+    position: relative; 
+}*/
 .instagram .album li:before{
 	display: none;
 }
@@ -149,15 +136,23 @@ figure {
 
 @media screen and (max-width:600px) {
 	.instagram .thumb {
-		width: 50%;
-		padding-bottom: 50%;
+	/* 1. 设置宽度以实现3列布局。32% 是一个不错的值，给间距留出了空间 */
+	width: 25%;
+
+	/* 2. 重置默认的上下外边距 */
+	margin-top: 0;
+	margin-bottom: 5px; /* <-- 你可以用这个值来精确控制“行间距”，试试15px */
+
+	/* 3. 移除旧的高度和内边距限制，让高度自动 */
+	height: auto;
+	padding-bottom: 0;
 	}
-	.instagram .album li {
+	/*.instagram .album li {
 		width: 100%;
 		position: relative;
 		padding-bottom: 100%;
 		text-align: center;
-	}
+	}*/
 	.instagram .album div.img-box{
 		margin: 0;
 		width: 90%;
