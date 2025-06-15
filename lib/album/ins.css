@@ -73,10 +73,10 @@ figure { margin: 0; }
 }
 
 /* --- 移动端响应式样式 --- */
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 2400px) {
   .instagram .thumb { width: 50%; }
 }
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 1200px) {
   .instagram .thumb { width: 100%; }
   #post-instagram { padding: 10px; }
 }
