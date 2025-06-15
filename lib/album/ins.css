@@ -1,6 +1,6 @@
 /* ===================================================================
 // 相册页面重构版 CSS
-// v3.0: 引入长宽比占位技术，实现平滑加载
+// v3.2: 移除了所有外边距，确保在所有设备上都能紧密贴合
 // =================================================================== */
 
 /* --- 全局与重置样式 --- */
@@ -12,37 +12,36 @@ figure { margin: 0; }
 
 /* * 单个图片项 (.thumb) 的核心样式 */
 .instagram .thumb {
-  padding: 0 2px;
+  padding: 0 2px; /* 仅保留左右内边距，用于控制列间距 */
   box-sizing: border-box; 
   width: 33.3333%;
   height: auto;
-  margin-bottom: 4px; /* 增加一个微小的底部外边距来创建垂直间隙 */
+  /* margin-bottom 已被移除，解决所有垂直缝隙问题 */
 }
 
 /* 链接设为块级元素 */
 .instagram .thumb a { display: block; }
 
-/* **新增**: 长宽比占位容器 */
+/* 长宽比占位容器 */
 .aspect-ratio-box {
-  position: relative; /* 为内部绝对定位的图片提供基准 */
-  height: 0;          /* 容器本身高度为0，完全由padding-top撑开 */
+  position: relative;
+  height: 0;
   width: 100%;
-  overflow: hidden;   /* 隐藏可能溢出的内容 */
-  border-radius: 4px; /* 圆角现在应用到这个容器上 */
+  overflow: hidden;
+  border-radius: 4px;
 }
 
-/* **新增**: 内部图片的样式 */
+/* 内部图片的样式 */
 .aspect-ratio-box img {
-  position: absolute; /* 绝对定位，脱离文档流 */
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100%;        /* 宽度填充容器 */
-  height: 100%;       /* 高度填充容器 */
-  object-fit: cover;  /* 确保图片完全覆盖容器，不变形 */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-
-/* * 月份标题项的样式 */
+/* 月份标题项的样式 */
 .grid-item--title {
   box-sizing: border-box;
   width: 100%;
@@ -64,7 +63,7 @@ figure { margin: 0; }
   color: #777;
 }
 
-/* --- 图片懒加载效果 --- */
+/* 图片懒加载效果 */
 .aspect-ratio-box img {
   opacity: 0;
   transition: opacity 0.6s ease;
