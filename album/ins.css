@@ -25,7 +25,7 @@
 	display: inline;
 }
 .instagram .thumb {
-	width: 25%;
+	width: 30%;
 	height: 0; 
 	padding-bottom: 25%;
 	position: relative;
@@ -48,6 +48,7 @@
 	clear: both;
 	width: 100%;
 	text-align: left;
+	justify-content: center;
 }
 .instagram .album li{
 	list-style: none;
@@ -56,9 +57,9 @@
 	padding: 0 5px;
 	margin-bottom: -10px;
 	height: 0;
-	width: 25%;
+	width: 30%;
 	position: relative;
-	padding-bottom: 25%;
+	padding-bottom: 30%;
 }
 .instagram .album li:before{
 	display: none;
